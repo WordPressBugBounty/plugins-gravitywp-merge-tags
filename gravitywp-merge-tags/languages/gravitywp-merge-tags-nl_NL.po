@@ -1,0 +1,296 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GravityWP - Merge Tags\n"
+"POT-Creation-Date: 2023-11-15 16:54-0400\n"
+"PO-Revision-Date: 2023-11-15 16:54-0400\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.3\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: gravitywp-merge-tags.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: class-gwp-mergetags.php:205 class-gwp-mergetags.php:270
+#: templates/template-merge-tags.php:6
+msgid "Merge Tags"
+msgstr "Merge Tags"
+
+#: class-gwp-mergetags.php:273
+msgid "Advanced"
+msgstr "Geavanceerd"
+
+#: class-gwp-mergetags.php:276
+msgid "Dynamic Population"
+msgstr "Dynamisch Vullen"
+
+#: class-gwp-mergetags.php:279
+msgid "Conditional Logic"
+msgstr "Conditionele logica"
+
+#: class-gwp-mergetags.php:282
+msgid "Calculations"
+msgstr "Berekeningen"
+
+#: class-gwp-mergetags.php:285
+msgid "Meta"
+msgstr ""
+
+#: class-gwp-mergetags.php:289
+msgid "Workflow"
+msgstr ""
+
+#: class-gwp-mergetags.php:293 templates/template-all-fields.php:9
+#: templates/template-all-fields.php:12
+msgid "All Fields"
+msgstr "Alle Velden"
+
+#: class-gwp-mergetags.php:302
+msgid "Template not found."
+msgstr "Sjabloon niet gevonden."
+
+#: class-gwp-mergetags.php:324
+msgid "Select Form"
+msgstr "Selecteer een formulier"
+
+#: templates/template-all-fields.php:9 templates/template-gravity-flow.php:12
+msgid "Type"
+msgstr "Soort"
+
+#: templates/template-all-fields.php:12
+msgid "Table"
+msgstr "Tabel"
+
+#: templates/template-all-fields.php:21
+msgid "Replace All Fields Merge Tag"
+msgstr "Vervang de merge tag voor Alle Velden"
+
+#: templates/template-all-fields.php:64
+msgid "Replace All Fields Merge Tag with Gravity Forms shortcode"
+msgstr ""
+"Vervang de merge tag voor Alle Velden inclusief Gravity Forms shortcode"
+
+#: templates/template-all-fields.php:115
+msgid "Replace All Fields Merge Tag with Gravity View shortcode"
+msgstr "Vervang de merge tag voor Alle Velden inclusief Gravity View shortcode"
+
+#: templates/template-all-fields.php:168
+msgid "Replace All Fields Merge Tag without fileuploads"
+msgstr "Vervang de merge tag voor Alle Velden zonder bestanduploads"
+
+#: templates/template-calculations.php:10
+msgid "Fields with calculations"
+msgstr "Velden met berekeningen"
+
+#: templates/template-calculations.php:14
+#: templates/template-conditional-logic.php:14
+#: templates/template-conditional-logic.php:103
+#: templates/template-gravity-flow.php:11
+msgid "ID"
+msgstr ""
+
+#: templates/template-calculations.php:15
+#: templates/template-conditional-logic.php:15
+#: templates/template-conditional-logic.php:104
+#: templates/template-merge-tags-advanced.php:17
+#: templates/template-merge-tags-advanced.php:67
+msgid "Field Label"
+msgstr "Veld Label"
+
+#: templates/template-calculations.php:16
+#: templates/template-conditional-logic.php:16
+#: templates/template-conditional-logic.php:105
+#: templates/template-merge-tags-advanced.php:21
+msgid "Admin Label"
+msgstr "Beheerders Label"
+
+#: templates/template-calculations.php:17
+msgid "Formula"
+msgstr "Formule"
+
+#: templates/template-calculations.php:18
+msgid "Number Format"
+msgstr "Format"
+
+#: templates/template-calculations.php:19
+msgid "Rounding (decimal places)"
+msgstr "Afronding (aantal decimalen)"
+
+#: templates/template-conditional-logic.php:10
+msgid "Fields with active conditional logic rules"
+msgstr "Velden met actieve voorwaardelijke logic voorwaarden"
+
+#: templates/template-conditional-logic.php:17
+msgid "Show / Hide"
+msgstr ""
+
+#: templates/template-conditional-logic.php:18
+msgid "Match"
+msgstr ""
+
+#: templates/template-conditional-logic.php:19
+msgid "Rules"
+msgstr ""
+
+#: templates/template-conditional-logic.php:99
+msgid "Fields used in conditional logic rules"
+msgstr "Velden die gebruikt zijn in conditionele voorwaarden"
+
+#: templates/template-conditional-logic.php:106
+msgid "Used in conditional logic of field with ID"
+msgstr "Gebruikt in conditionele logica van veld met ID"
+
+#: templates/template-dynamic-population.php:33
+msgid "Url query string template for dynamic population"
+msgstr "Url query string template voor dynamische populatie"
+
+#: templates/template-dynamic-population.php:41
+msgid "Url query string template with merge tags for dynamic population"
+msgstr "Url query string template met merge tags voor dynamische populatie"
+
+#: templates/template-dynamic-population.php:49
+msgid "Excel formula for generating url (encoded) query string (International)"
+msgstr ""
+"Excel-formule voor het genereren van url (gecodeerde) query string "
+"(internationaal)"
+
+#: templates/template-dynamic-population.php:57
+msgid "Excel formula for generating url (encoded) query string (Localized)"
+msgstr ""
+"Excel-formule voor het genereren van url (gecodeerde) query string "
+"(gelokaliseerd)"
+
+#. translators: Translate to localized excel function.
+#: templates/template-dynamic-population.php:64
+msgid "ENCODEURL"
+msgstr "URL.CODEREN"
+
+#: templates/template-gravity-flow.php:10
+msgid "Gravity Flow Step"
+msgstr "GravityFlow Stap"
+
+#: templates/template-gravity-flow.php:13
+msgid "Active"
+msgstr "Actief"
+
+#: templates/template-gravity-flow.php:14
+msgid "Conditions"
+msgstr "Condities"
+
+#: templates/template-gravity-flow.php:15
+msgid "Next Step (id)"
+msgstr "Volgende Stap (id)"
+
+#: templates/template-gravity-flow.php:16
+msgid "Count Shortcode"
+msgstr ""
+
+#: templates/template-merge-tags-advanced.php:14
+msgid "Toggle columns:"
+msgstr "Schakel kolommen:"
+
+#: templates/template-merge-tags-advanced.php:25
+#: templates/template-merge-tags-advanced.php:69
+msgid "Merge Tag"
+msgstr "Merge Tag"
+
+#: templates/template-merge-tags-advanced.php:29
+#: templates/template-merge-tags-advanced.php:70
+msgid "Merge Tag (admin)"
+msgstr ""
+
+#: templates/template-merge-tags-advanced.php:33
+#, fuzzy
+#| msgid "Merge Tags (short)"
+msgid "Merge Tag (short)"
+msgstr "Merge Tags (kort)"
+
+#: templates/template-merge-tags-advanced.php:37
+#: templates/template-merge-tags-advanced.php:72
+msgid "Populate"
+msgstr "Vullen"
+
+#: templates/template-merge-tags-advanced.php:41
+#: templates/template-merge-tags-advanced.php:73
+msgid "CSS"
+msgstr ""
+
+#: templates/template-merge-tags-advanced.php:45
+#: templates/template-merge-tags-advanced.php:74
+msgid "Field Type"
+msgstr "Veld Type"
+
+#: templates/template-merge-tags-advanced.php:49
+#: templates/template-merge-tags-advanced.php:75
+msgid "Field ID"
+msgstr "Veld ID"
+
+#: templates/template-merge-tags-advanced.php:53
+msgid "Toggle field types: "
+msgstr "Schakel veld type: "
+
+#: templates/template-merge-tags-advanced.php:56
+msgid "Choices"
+msgstr "Keuzes"
+
+#: templates/template-merge-tags-advanced.php:60
+msgid "Non-input fields"
+msgstr "Non-invoervelden"
+
+#: templates/template-merge-tags-advanced.php:68
+msgid "Admin Label / value"
+msgstr "Beheerders label / waarde"
+
+#: templates/template-merge-tags-advanced.php:71
+msgid "Merge Tags (short)"
+msgstr "Merge Tags (kort)"
+
+#. Plugin Name of the plugin/theme
+msgid "GravityWP - Merge Tags"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://gravitywp.com/plugin/merge-tags"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Gravity Forms add-on to list all the merge tags from a specific form"
+msgstr ""
+"Gravity Forms add-on om alle Merge Tags van een specifiek formulier weer te "
+"geven"
+
+#. Author of the plugin/theme
+msgid "GravityWP"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://gravitywp.com"
+msgstr ""
+
+#~ msgid "Standard"
+#~ msgstr "Standaard"
+
+#~ msgid "without fileuploads"
+#~ msgstr "zonder bestanden (links naar bestanden)"
+
+#~ msgid "Field Labels"
+#~ msgstr "Veld Labels"
+
+#~ msgid "Field Types"
+#~ msgstr "Veld Types"
+
+#~ msgid "Standard Merge Tags"
+#~ msgstr "Standaard Merge Tags"
+
+#~ msgid "Field labels"
+#~ msgstr "Veld Labels"
