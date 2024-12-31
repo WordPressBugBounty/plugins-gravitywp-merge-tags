@@ -77,15 +77,26 @@ $gwp_merge_tags['gravity_view_merge_tags']['values'] = array(
 	'created_by',
 	'created_by:ID',
 	'current_post',
+	'current_post:comment_count',
 	'current_post:ID',
-	'current_post:title',
-	'current_post:post_type',
+	'current_post:guid',
 	'current_post:permalink',
+	'current_post:post_author',
+	'current_post:post_content',
+	'current_post:post_date',
+	'current_post:post_excerpt',
+	'current_post:post_mime_type',
+	'current_post:post_name',
+	'current_post:post_parent',
+	'current_post:post_status',
+	'current_post:post_title',
+	'current_post:post_type',
+	'is_starred',
 	'sequence',
 	'sequence start=[number]',
 	'sequence reverse',
 	'sequence reverse start=[number]',
-	'is_starred',
+
 
 );
 
@@ -148,19 +159,20 @@ $gwp_merge_tags = apply_filters( 'gwp_merge_tags_meta_merge_tags', $gwp_merge_ta
 <table class='wp-list-table widefat striped gwp_div' cellspacing='0' style="break-inside: avoid-column;">
 	<thead>
 		<tr>
-			<td><a href="<?php echo esc_attr( $gwp_merge_tag['url'] ) ?>" target="_blank">
+			<td><a href="<?php echo esc_attr( $gwp_merge_tag['url'] ); ?>" target="_blank">
 			<span class="dashicons dashicons-external"></span><?php echo esc_html( $gwp_merge_tag['name'] ); ?></a></td>
 		</tr>
 	</thead>
 	<tbody>
 			<?php foreach ( $gwp_merge_tag['values'] as $value ) { ?>
 				<tr>
-					<td style="position:relative;">
+					<td style="position:relative;" class="gwp-value-select">
 						<?php echo esc_html( $value ); ?>
 					</td>
 				</tr>
 				<?php
-			}  ?>
+			}
+			?>
 	</tbody>
 </table>
 	<?php

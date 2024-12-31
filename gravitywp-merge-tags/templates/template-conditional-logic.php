@@ -24,68 +24,72 @@ class_exists( 'GFForms' ) || die();
 
 			$count_output = 0;
 
-			foreach ( $form['fields'] as $field ) {
+			if ( isset( $form ) ) {
 
-				// Check if field has conditional logic set.
-				if ( is_array( $field['conditionalLogic'] ) && is_array( $field['conditionalLogic']['rules'] ) ) {
+				foreach ( $form['fields'] as $field ) {
 
-					/**
-					 * Check if conditional logic is enabled (does not apply on older forms).
-					 * If enabled, output conitional logic rules,
-					 */
-					if ( isset( $field['conditionalLogic']['enabled'] ) && $field['conditionalLogic']['enabled'] === false ) {
+					// Check if field has conditional logic set.
+					if ( is_array( $field['conditionalLogic'] ) && is_array( $field['conditionalLogic']['rules'] ) ) {
 
-						continue;
-					} else {
+						/**
+						 * Check if conditional logic is enabled (does not apply on older forms).
+						 * If enabled, output conitional logic rules,
+						 */
+						if ( isset( $field['conditionalLogic']['enabled'] ) && $field['conditionalLogic']['enabled'] === false ) {
 
-						// Increment output counter. When this stays 0, a 'no results found' text is displayed.
+							continue;
+						} else {
 
-						$count_output++;
+							// Increment output counter. When this stays 0, a 'no results found' text is displayed.
 
-						// Save field information.
-						$field_label       = isset( $field['label'] ) ? $field['label'] : '';
-						$field_id          = isset( $field['id'] ) ? $field['id'] : '';
-						$field_admin_label = isset( $field['adminLabel'] ) ? $field['adminLabel'] : '';
-						$field_show_hide   = isset( $field['conditionalLogic']['actionType'] ) ? $field['conditionalLogic']['actionType'] : '';
-						$field_match       = isset( $field['conditionalLogic']['logicType'] ) ? $field['conditionalLogic']['logicType'] : '';
-						?>
+							$count_output++;
+
+							// Save field information.
+							$field_label       = isset( $field['label'] ) ? $field['label'] : '';
+							$field_id          = isset( $field['id'] ) ? $field['id'] : '';
+							$field_admin_label = isset( $field['adminLabel'] ) ? $field['adminLabel'] : '';
+							$field_show_hide   = isset( $field['conditionalLogic']['actionType'] ) ? $field['conditionalLogic']['actionType'] : '';
+							$field_match       = isset( $field['conditionalLogic']['logicType'] ) ? $field['conditionalLogic']['logicType'] : '';
+							?>
 				<tr>
 					<!-- Output field information. -->
-					<td><?php echo $field_id; ?></td>
+					<td><?php echo esc_html( (string) $field_id ); ?></td>
 					<td><?php echo esc_html( $field_label ); ?></td>
 					<td><?php echo esc_html( $field_admin_label ); ?></td>
 					<td><?php echo esc_html( $field_show_hide ); ?></td>
 					<td><?php echo esc_html( $field_match ); ?></td>
 					<td>
-						<?php
-						foreach ( $field['conditionalLogic']['rules'] as $rule ) {
-
-							// Save rule information.
-							$rule_field_id = isset( $rule['fieldId'] ) ? $rule['fieldId'] : '';
-							$rule_operator = isset( $rule['operator'] ) ? $rule['operator'] : '';
-							$rule_value    = isset( $rule['value'] ) ? $rule['value'] : '';
-
-							// Save field ID of rule.
-							$connected_field = GFAPI::get_field( $form, $rule['fieldId'] );
-
-							// Output rule.
-							$conditional_logic_rule = $connected_field['label'] . ':' . $rule_field_id . '--' . $rule_operator . '--' . $rule_value;
-							echo esc_html( $conditional_logic_rule );
-
-							// Reset rule in case there are multiple rules.
-							$rule = '';
-							?>
-							<br>
 							<?php
-						}
-						?>
+							foreach ( $field['conditionalLogic']['rules'] as $rule ) {
+
+								// Save rule information.
+								$rule_field_id = isset( $rule['fieldId'] ) ? $rule['fieldId'] : '';
+								$rule_operator = isset( $rule['operator'] ) ? $rule['operator'] : '';
+								$rule_value    = isset( $rule['value'] ) ? $rule['value'] : '';
+
+								// Save field ID of rule.
+								$connected_field       = GFAPI::get_field( $form, $rule['fieldId'] );
+								$connected_field_label = $connected_field['adminLabel'] !== '' ? $connected_field['adminLabel'] : $connected_field['label'];
+
+								// Output rule.
+								$conditional_logic_rule = $connected_field_label . ':' . $rule_field_id . '--' . $rule_operator . '--' . $rule_value;
+								echo esc_html( $conditional_logic_rule );
+
+								// Reset rule in case there are multiple rules.
+								$rule = '';
+								?>
+							<br>
+								<?php
+							}
+							?>
 					</td>
 				</tr>
-						<?php
+							<?php
+						}
 					}
 				}
 			}
-			if ( isset( $count_output ) && $count_output === 0 ) {
+			if ( $count_output === 0 ) {
 				echo '<tr><td colspan="6">No results found</td></tr>';
 			}
 			?>
@@ -112,49 +116,52 @@ class_exists( 'GFForms' ) || die();
 	// Initialize empty output array.
 	$output_arr = array();
 
-	foreach ( $form['fields'] as $field ) {
+	if ( isset( $form ) ) {
+
+		foreach ( $form['fields'] as $field ) {
 
 			// Check if field has conditional logic set.
-		if ( is_array( $field['conditionalLogic'] ) && is_array( $field['conditionalLogic']['rules'] ) ) {
+			if ( is_array( $field['conditionalLogic'] ) && is_array( $field['conditionalLogic']['rules'] ) ) {
 
-			/**
-			 * Check if conditional logic is enabled (does not apply on older forms).
-			 * If enabled, output conitional logic rules,
-			 */
-			if ( isset( $field['conditionalLogic']['enabled'] ) && $field['conditionalLogic']['enabled'] === false ) {
-
-				continue;
-			} else {
-
-				// Check if fieldId is found in rule. If no, skip output.
-				if ( ! isset( $field['conditionalLogic']['rules']['0']['fieldId'] ) ) {
+				/**
+				 * Check if conditional logic is enabled (does not apply on older forms).
+				 * If enabled, output conitional logic rules,
+				 */
+				if ( isset( $field['conditionalLogic']['enabled'] ) && $field['conditionalLogic']['enabled'] === false ) {
 
 					continue;
 				} else {
 
-					// Get and save data for output.
-					$condition_field_id = $field['conditionalLogic']['rules']['0']['fieldId'];
+					// Check if fieldId is found in rule. If no, skip output.
+					if ( ! isset( $field['conditionalLogic']['rules']['0']['fieldId'] ) ) {
 
-					// Get field info of field that is used in rule by the ID.
-					$condition_field = GFAPI::get_field( $form['id'], $condition_field_id );
-
-					// Save data for output
-					$condition_field_label       = isset( $condition_field['label'] ) ? $condition_field['label'] : '';
-					$condition_field_admin_label = isset( $condition_field['adminLabel'] ) ? $condition_field['adminLabel'] : '';
-
-					// Create array for ouput.
-
-					// If field ID in rule is already present in array, add main field ID to exisitng value.
-					if ( isset( $output_arr[ $condition_field_id ] ) ) {
-
-						$output_arr[ $condition_field_id ]['main_field'] .= '<br>' . $field['id'] . ':' . $field['label'];
+						continue;
 					} else {
 
-						$output_arr[ $condition_field_id ] = array(
-							'contition_field_label'       => $condition_field_label,
-							'contition_field_admin_label' => $condition_field_admin_label,
-							'main_field'                  => $field['id'] . ':' . $field['label'],
-						);
+						// Get and save data for output.
+						$condition_field_id = $field['conditionalLogic']['rules']['0']['fieldId'];
+
+						// Get field info of field that is used in rule by the ID.
+						$condition_field = GFAPI::get_field( $form['id'], $condition_field_id );
+
+						// Save data for output.
+						$condition_field_label       = isset( $condition_field['label'] ) ? $condition_field['label'] : '';
+						$condition_field_admin_label = isset( $condition_field['adminLabel'] ) ? $condition_field['adminLabel'] : '';
+
+						// Create array for ouput.
+
+						// If field ID in rule is already present in array, add main field ID to exisitng value.
+						if ( isset( $output_arr[ $condition_field_id ] ) ) {
+
+							$output_arr[ $condition_field_id ]['main_field'] .= '<br>' . $field['id'] . ':' . $field['label'];
+						} else {
+
+							$output_arr[ $condition_field_id ] = array(
+								'contition_field_label' => $condition_field_label,
+								'contition_field_admin_label' => $condition_field_admin_label,
+								'main_field'            => $field['id'] . ':' . $field['label'],
+							);
+						}
 					}
 				}
 			}
@@ -163,7 +170,7 @@ class_exists( 'GFForms' ) || die();
 
 	// Show no results if there is no output.
 
-	if ( isset( $output_arr ) && count( $output_arr ) === 0 ) {
+	if ( count( $output_arr ) === 0 ) {
 		echo '<tr><td colspan="4">No results found</td></tr>';
 	}
 
@@ -176,7 +183,7 @@ class_exists( 'GFForms' ) || die();
 			<td><?php echo esc_html( $key ); ?></td>
 			<td><?php echo esc_html( $value['contition_field_label'] ); ?></td>
 			<td><?php echo esc_html( $value['contition_field_admin_label'] ); ?></td>
-			<td><?php echo $value['main_field']; ?></td>
+			<td><?php echo wp_kses_post( $value['main_field'] ); ?></td>
 		</tr>
 		<?php
 	}

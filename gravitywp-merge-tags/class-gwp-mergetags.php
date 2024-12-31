@@ -210,6 +210,27 @@ class GWPMergeTags extends GFAddOn {
 			}
 		}
 	}
+
+	/**
+	 * Function: gwp_create_menu_item.
+	 *
+	 * @author GravityWP
+	 * @since v0.0.1
+	 * @version v1.0.0
+	 * @param string $slug
+	 * @param string $title
+	 *
+	 * @return void
+	 */
+	public function gwp_create_menu_item( $slug, $title ) {
+		$url    = 'href=?page=gravitywp-merge-tags&id=' . absint( $_GET['id'] );
+		$active = '';
+		if ( isset( $_GET['tab'] ) && $_GET['tab'] === $slug ) {
+			$active = ' nav-tab-active';
+		}
+		echo '<a ' . esc_attr( $url ) . '&tab=' . esc_attr( $slug ) . ' class="nav-tab' . esc_attr( $active );
+		echo '">' . esc_html( $title ) . '</a>';
+	}
 	
 	/**
 	 * Creates a custom admin page for GravityWP - Merge Tags
@@ -224,33 +245,22 @@ class GWPMergeTags extends GFAddOn {
 	public function plugin_page() {
 
 		if ( isset( $_GET['id'] ) && ! empty( absint( $_GET['id'] ) ) ) {
+
+			// Enqueue admin css.
+			$handle = 'gwp-mergetags-admin-css';
+			$src    = plugins_url( '/assets/css/admin.css', __FILE__ );
+			$deps   = array();
+			$ver    = '1.0.0';
+			$media  = 'all';
+			wp_enqueue_style( $handle, $src, $deps, $ver, $media );
+
+
 			// Include gforms admin styles.
 			wp_print_styles( array( 'jquery-ui-styles', 'gform_admin', 'gform_settings', 'wp-pointer' ) );
 			echo '<style>table.wp-list-table { margin-bottom: 10px;  }</style>';
 
 			$active_tab = isset( $_GET['tab'] ) ? wp_unslash( $_GET['tab'] ) : 'merge-tags';
 			$form       = RGFormsModel::get_form_meta( absint( $_GET['id'] ) );
-
-			/**
-			 * Function: gwp_create_menu_item.
-			 *
-			 * @author GravityWP
-			 * @since v0.0.1
-			 * @version v1.0.0
-			 * @param string $slug
-			 * @param string $title
-			 *
-			 * @return void
-			 */
-			function gwp_create_menu_item( $slug, $title ) {
-				$url    = 'href=?page=gravitywp-merge-tags&id=' . absint( $_GET['id'] );
-				$active = '';
-				if ( isset( $_GET['tab'] ) && $_GET['tab'] === $slug ) {
-					$active = ' nav-tab-active';
-				}
-				echo '<a ' . esc_attr( $url ) . '&tab=' . esc_attr( $slug ) . ' class="nav-tab' . esc_attr( $active );
-				echo '">' . esc_html( $title ) . '</a>';
-			}
 
 			// Add selectable form title for GF 2.4 and lower.
 			if ( version_compare( GFCommon::$version, '2.5', '<' ) ) {
@@ -268,30 +278,30 @@ class GWPMergeTags extends GFAddOn {
 
 			// Create menu items.
 			$var_merge_tags = esc_html__( 'Merge Tags', 'gravitywp-merge-tags' );
-			gwp_create_menu_item( 'merge-tags', $var_merge_tags );
+			$this->gwp_create_menu_item( 'merge-tags', $var_merge_tags );
 
 			$var_merge_tags_advanced = esc_html__( 'Advanced', 'gravitywp-merge-tags' );
-			gwp_create_menu_item( 'merge-tags-advanced', $var_merge_tags_advanced );
+			$this->gwp_create_menu_item( 'merge-tags-advanced', $var_merge_tags_advanced );
 
 			$var_dynamic_population = esc_html__( 'Dynamic Population', 'gravitywp-merge-tags' );
-			gwp_create_menu_item( 'dynamic-population', $var_dynamic_population );
+			$this->gwp_create_menu_item( 'dynamic-population', $var_dynamic_population );
 
 			$var_conditional_logic = esc_html__( 'Conditional Logic', 'gravitywp-merge-tags' );
-			gwp_create_menu_item( 'conditional-logic', $var_conditional_logic );
+			$this->gwp_create_menu_item( 'conditional-logic', $var_conditional_logic );
 
 			$var_calculations = esc_html__( 'Calculations', 'gravitywp-merge-tags' );
-			gwp_create_menu_item( 'calculations', $var_calculations );
+			$this->gwp_create_menu_item( 'calculations', $var_calculations );
 
 			$var_merge_tags_standard = esc_html__( 'Meta', 'gravitywp-merge-tags' );
-			gwp_create_menu_item( 'standard-merge-tags', $var_merge_tags_standard );
+			$this->gwp_create_menu_item( 'standard-merge-tags', $var_merge_tags_standard );
 
 			if ( class_exists( 'Gravity_Flow_API' ) ) {
 				$var_merge_tags_gravity_flow = esc_html__( 'Workflow', 'gravitywp-merge-tags' );
-				gwp_create_menu_item( 'gravity-flow', $var_merge_tags_gravity_flow );
+				$this->gwp_create_menu_item( 'gravity-flow', $var_merge_tags_gravity_flow );
 			}
 
 			$var_merge_tags_all_fields = esc_html__( 'All Fields', 'gravitywp-merge-tags' );
-			gwp_create_menu_item( 'all-fields', $var_merge_tags_all_fields );
+			$this->gwp_create_menu_item( 'all-fields', $var_merge_tags_all_fields );
 
 			echo '</h2><div style="padding: 7px;">';
 

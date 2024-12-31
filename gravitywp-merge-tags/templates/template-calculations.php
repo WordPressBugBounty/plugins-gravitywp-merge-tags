@@ -1,5 +1,21 @@
 <?php
 class_exists( 'GFForms' ) || die();
+
+/**
+ * Outputs a row for each calculation that is enabled.
+ *
+ * @param array<mixed> $values Array with output values.
+ *
+ * @return void
+ */
+function gwp_output_table_row( $values ) {
+
+	echo '<tr>';
+	foreach ( $values as $value ) {
+		echo '<td>' . esc_html( $value ) . '</td>';
+	}
+	echo '</tr>';
+}
 ?>
 <p></p>
 
@@ -15,6 +31,7 @@ class_exists( 'GFForms' ) || die();
 				<th style="width:25%"><?php esc_html_e( 'Field Label', 'gravitywp-merge-tags' ); ?></th>
 				<th style="width:25%"><?php esc_html_e( 'Admin Label', 'gravitywp-merge-tags' ); ?></th>
 				<th style="width:30%"><?php esc_html_e( 'Formula', 'gravitywp-merge-tags' ); ?></th>
+				<th style="width:30%"><?php esc_html_e( 'Calculation', 'gravitywp-merge-tags' ); ?></th>
 				<th style="width:15%"><?php esc_html_e( 'Number Format', 'gravitywp-merge-tags' ); ?></th>
 			</tr>
 			</thead>
@@ -23,43 +40,76 @@ class_exists( 'GFForms' ) || die();
 
 			$count_output = 0;
 
-			foreach ( $form['fields'] as $field ) {
+			if ( isset( $form['fields'] ) ) {
 
-				
+				foreach ( $form['fields'] as $field ) {
+
+
 					/**
 					 * Check if calculations are enabled.
 					 * If enabled, output calculation data.
 					 */
-					if ( isset( $field[ 'enableCalculation' ] ) && $field[ 'enableCalculation' ] !== true ) {
+					if ( isset( $field['enableCalculation'] ) && $field['enableCalculation'] === true ) {
 
-						continue;
-					} else {
+						// Field value calulation enabled.
 
 						// Increment output counter. When this stays 0, a 'no results found' text is displayed.
 
 						$count_output++;
+						$values = array();
 
 						// Save field information.
-						$field_label       		= isset( $field['label'] ) ? $field['label'] : '';
-						$field_id          		= isset( $field['id'] ) ? $field['id'] : '';
-						$field_admin_label 		= isset( $field['adminLabel'] ) ? $field['adminLabel'] : '';
-						$field_formula     		= isset( $field['calculationFormula'] ) ? $field['calculationFormula'] : '';
-						$field_number_format    = isset( $field['numberFormat'] ) ? $field['numberFormat'] : '';
-						?>
-				<tr>
-					<!-- Output field information. -->
-					<td><?php echo esc_html($field_id ); ?></td>
-					<td><?php echo esc_html( $field_label ); ?></td>
-					<td><?php echo esc_html( $field_admin_label ); ?></td>
-					<td><?php echo esc_html( $field_formula ); ?></td>
-					<td><?php echo esc_html( $field_number_format ); ?></td>
-				</tr>
-						<?php
+						$values['field_id']               = isset( $field['id'] ) ? $field['id'] : '';
+						$values['field_label']            = isset( $field['label'] ) ? $field['label'] : '';
+						$values['field_admin_label']      = isset( $field['adminLabel'] ) ? $field['adminLabel'] : '';
+						$values['field_formula']          = isset( $field['calculationFormula'] ) ? $field['calculationFormula'] : '';
+						$values['field_calculation_type'] = 'value';
+						$values['field_number_format']    = isset( $field['numberFormat'] ) ? $field['numberFormat'] : '';
+
+						gwp_output_table_row( $values );
 					}
-				
+					if ( isset( $field['gwp']['minValueCalculation']['enabled'] ) && $field['gwp']['minValueCalculation']['enabled'] === true ) {
+
+						// Min value calulation enabled.
+
+						// Increment output counter. When this stays 0, a 'no results found' text is displayed.
+
+						$count_output++;
+						$values = array();
+
+						// Save field information.
+						$values['field_id']               = isset( $field['id'] ) ? $field['id'] : '';
+						$values['field_label']            = isset( $field['label'] ) ? $field['label'] : '';
+						$values['field_admin_label']      = isset( $field['adminLabel'] ) ? $field['adminLabel'] : '';
+						$values['field_formula']          = isset( $field['gwp']['minValueCalculation']['formula'] ) ? $field['gwp']['minValueCalculation']['formula'] : '';
+						$values['field_calculation_type'] = 'min';
+						$values['field_number_format']    = isset( $field['numberFormat'] ) ? $field['numberFormat'] : '';
+
+						gwp_output_table_row( $values );
+					}
+					if ( isset( $field['gwp']['maxValueCalculation']['enabled'] ) && $field['gwp']['maxValueCalculation']['enabled'] === true ) {
+
+						// Max value calulation enabled.
+
+						// Increment output counter. When this stays 0, a 'no results found' text is displayed.
+
+						$count_output++;
+						$values = array();
+
+						// Save field information.
+						$values['field_id']               = isset( $field['id'] ) ? $field['id'] : '';
+						$values['field_label']            = isset( $field['label'] ) ? $field['label'] : '';
+						$values['field_admin_label']      = isset( $field['adminLabel'] ) ? $field['adminLabel'] : '';
+						$values['field_formula']          = isset( $field['gwp']['maxValueCalculation']['formula'] ) ? $field['gwp']['maxValueCalculation']['formula'] : '';
+						$values['field_calculation_type'] = 'max';
+						$values['field_number_format']    = isset( $field['numberFormat'] ) ? $field['numberFormat'] : '';
+
+						gwp_output_table_row( $values );
+					}
+				}
 			}
-			if ( isset( $count_output ) && $count_output === 0 ) {
-				echo '<tr><td colspan="6">No results found</td></tr>';
+			if ( $count_output === 0 ) {
+				echo '<tr><td colspan="6">' . esc_html( 'No results found.' ) . '</td></tr>';
 			}
 			?>
 		<tbody>

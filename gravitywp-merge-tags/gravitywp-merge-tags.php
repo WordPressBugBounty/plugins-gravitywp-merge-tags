@@ -3,7 +3,7 @@
 Plugin Name: GravityWP - Merge Tags
 Plugin URI: https://gravitywp.com/plugin/merge-tags
 Description: Gravity Forms add-on to list all the merge tags from a specific form
-Version: 1.3
+Version: 1.4.1
 Author: GravityWP
 Author URI: https://gravitywp.com
 License: GPL2
@@ -11,7 +11,7 @@ Text Domain: gravitywp-merge-tags
 Domain Path: /languages
 */
 
-define( 'GWP_MERGETAGS_VERSION', '1.3' );
+define( 'GWP_MERGETAGS_VERSION', '1.4.1' );
 
 add_action( 'gform_loaded', array( 'GWPMergeTags_AddOn_Bootstrap', 'load' ), 5 );
 

@@ -2,8 +2,11 @@
 
 $gwp_workflow       = new Gravity_Flow_API( absint( $_GET['id'] ) );
 $gwp_workflow_steps = $gwp_workflow->get_steps();
+$formid = $form ? $form['id'] : ''; 
 ?>
 <p></p>
+<a class="button" style="margin-bottom:10px;" href="<?php echo admin_url() . esc_html( 'admin.php?page=gravityflow-status&entry-id=&start-date&end-date&form-id=' . $formid . '&gravityflow-print-timelines=print_timelines&gravityflow-print-page-break=print_page_break' ); ?>"><?php esc_html_e( 'Worfklow Status' ); ?></a>
+
 <table class='wp-list-table widefat striped' cellspacing='0'>
 			<thead>
 			<tr>
@@ -29,8 +32,8 @@ $gwp_workflow_steps = $gwp_workflow->get_steps();
 			$next_step_str = rgar( $feed_meta, 'destination_complete' );
 			?>
 			<tr>
-				<td><a href="<?php echo esc_attr( '/wp-admin/admin.php?page=gf_edit_forms&view=settings&subview=gravityflow&id=' . absint( $_GET['id'] ) . '&fid=' . $step->get_id() ); ?>"><?php echo esc_html( $step->get_name() ); ?></a></td>
-				<td><?php echo esc_html( $step->get_id() ); ?></td>
+				<td><a href="<?php echo esc_attr( admin_url() . 'admin.php?page=gf_edit_forms&view=settings&subview=gravityflow&id=' . absint( $_GET['id'] ) . '&fid=' . $step->get_id() ); ?>"><?php echo esc_html( $step->get_name() ); ?></a></td>
+				<td><?php echo esc_html( strval( $step->get_id() ) ); ?></td>
 				<td><?php echo esc_html( $step->get_type() ); ?></td>
 				<td><?php echo esc_html( ( ( $step->is_active() == '1' ) ? '&#10003;' : '&#10007;' ) ); ?></td>
 				<td>
@@ -53,7 +56,9 @@ $gwp_workflow_steps = $gwp_workflow->get_steps();
 
 							// Retrieve field info from field with same ID.
 
-							$field = GFFormsModel::get_field( $form, $rule['fieldId'] );
+							if ( isset( $form ) ) {
+								$field = GFFormsModel::get_field( $form, $rule['fieldId'] );
+							}
 
 							// If this field contains choices, save number of choices.
 
@@ -86,7 +91,7 @@ $gwp_workflow_steps = $gwp_workflow->get_steps();
 							// Reset $condition in case of multiple workflow condtions without choices.
 
 							$condition = '';
-							
+
 							?>
 							<br>
 							<?php

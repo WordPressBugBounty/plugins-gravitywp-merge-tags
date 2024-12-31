@@ -3,8 +3,8 @@ Contributors: GravityWP
 Plugin URI: https://gravitywp.com/add-on/merge-tags/
 Tags: gravity forms, mergetag, merge tag, mergetags, form, forms, gravity form
 Requires at least: 3.0.1
-Tested up to: 6.4
-Stable tag: 1.3.0
+Tested up to: 6.6
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,6 +75,18 @@ The $gwp_merge_tags variable is an associative array, which you can add your own
 9. Calculations overview for the current Gravity Form (Formula, Number Format).
 
 == Changelog ==
+
+= 1.4.1 =
+* Fix admin links for sites using Bedrock.
+* Added Workflow Status button to workflow tab.
+
+= 1.4 =
+* Added Generate All Fields Merge Tag tab.
+* Fix for copying a line break when copy and pasting values.
+* Fixed typo in Gview section of Meta tab.
+* Added all current_posts merge tags to Meta tab.
+* Show admin labels in rules of Conditional Logic tab.
+
 = 1.3 =
 * Added tab for Calculations.
 * Added tab for Dynamic Population.

@@ -8,18 +8,18 @@
 	<tbody>
 	<?php
 
-	if ( is_array( $form['fields'] ) ) {
+	if ( isset( $form['fields'] ) && is_array( $form['fields'] ) ) {
 		foreach ( $form['fields'] as $field ) {
 			if ( isset( $field['inputs'] ) && is_array( $field['inputs'] ) ) {
 
 				foreach ( $field['inputs'] as $input ) {
 					?>
-						<tr><td>{<?php echo esc_html( GFCommon::get_label( $field, $input['id'] ) . ':' . $input['id'] ); ?>}</td></tr>
+						<tr><td class="gwp-value-select">{<?php echo esc_html( GFCommon::get_label( $field, $input['id'] ) . ':' . $input['id'] ); ?>}</td></tr>
 						<?php
 				}
 			} elseif ( ! rgar( $field, 'displayOnly' ) ) {
 				?>
-					<tr><td>{<?php echo esc_html( GFCommon::get_label( $field ) . ':' . $field['id'] ); ?>}</td></tr>
+					<tr><td class="gwp-value-select">{<?php echo esc_html( GFCommon::get_label( $field ) . ':' . $field['id'] ); ?>}</td></tr>
 					<?php
 			}
 		}
