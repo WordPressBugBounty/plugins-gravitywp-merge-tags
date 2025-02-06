@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GravityWP - Merge Tags\n"
-"POT-Creation-Date: 2024-05-27 13:30-0400\n"
-"PO-Revision-Date: 2024-05-27 13:36-0400\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2025-02-04 12:02+0100\n"
+"PO-Revision-Date: 2025-02-04 12:03+0100\n"
+"Last-Translator: Jurriaan Koops <info@aiwos.com>\n"
 "Language-Team: \n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
@@ -50,8 +50,8 @@ msgstr "Meta"
 msgid "Workflow"
 msgstr "Workflow"
 
-#: class-gwp-mergetags.php:303 templates/template-all-fields.php:161
-#: templates/template-all-fields.php:164
+#: class-gwp-mergetags.php:303 templates/template-all-fields.php:163
+#: templates/template-all-fields.php:166
 msgid "All Fields"
 msgstr "Alle velden"
 
@@ -63,7 +63,7 @@ msgstr "Sjabloon niet gevonden."
 msgid "Select Form"
 msgstr "Selecteer formulier"
 
-#: templates/template-all-fields.php:54
+#: templates/template-all-fields.php:55
 msgid "Copy"
 msgstr "Kopiëren"
 
@@ -107,57 +107,58 @@ msgstr "Alle velden"
 msgid "Gravity Forms conditional shortcode"
 msgstr ""
 
-#: templates/template-all-fields.php:96
-msgid "Gravity View gvlogic"
+#: templates/template-all-fields.php:97
+msgid "GravityView gvlogic"
 msgstr ""
 
-#: templates/template-all-fields.php:97
+#: templates/template-all-fields.php:99
 msgid "Without fileuploads"
 msgstr "Zonder bestanden"
 
-#: templates/template-all-fields.php:111
+#: templates/template-all-fields.php:113
 msgid "Select all fields"
 msgstr "Selecteer alle velden"
 
-#: templates/template-all-fields.php:113
+#: templates/template-all-fields.php:115
 msgid "Label"
 msgstr "Label"
 
-#: templates/template-all-fields.php:114 templates/template-calculations.php:32
+#: templates/template-all-fields.php:116 templates/template-calculations.php:32
 #: templates/template-conditional-logic.php:16
 #: templates/template-conditional-logic.php:109
 #: templates/template-merge-tags-advanced.php:21
 msgid "Admin Label"
 msgstr "Admin beheerder"
 
-#: templates/template-all-fields.php:115 templates/template-all-fields.php:161
-#: templates/template-gravity-flow.php:12
+#: templates/template-all-fields.php:117 templates/template-all-fields.php:163
+#: templates/template-dynamic-population.php:62
+#: templates/template-gravity-flow.php:15
 msgid "Type"
 msgstr "Soort"
 
-#: templates/template-all-fields.php:116
+#: templates/template-all-fields.php:118
 #: templates/template-merge-tags-advanced.php:41
 #: templates/template-merge-tags-advanced.php:73
 msgid "CSS"
 msgstr "CSS"
 
-#: templates/template-all-fields.php:164
+#: templates/template-all-fields.php:166
 msgid "Table"
 msgstr "Tabel"
 
-#: templates/template-all-fields.php:173
+#: templates/template-all-fields.php:175
 msgid "Replace All Fields Merge Tag"
 msgstr "Vervang All Fields Merge Tag"
 
-#: templates/template-all-fields.php:216
+#: templates/template-all-fields.php:218
 msgid "Replace All Fields Merge Tag with Gravity Forms shortcode"
 msgstr "Vervang All Fields Merge Tag door de Gravity Forms shortcode"
 
-#: templates/template-all-fields.php:265
+#: templates/template-all-fields.php:267
 msgid "Replace All Fields Merge Tag with Gravity View shortcode"
 msgstr "Vervang All Fields Merge Tag door de Gravity View shortcode"
 
-#: templates/template-all-fields.php:318
+#: templates/template-all-fields.php:320
 msgid "Replace All Fields Merge Tag without fileuploads"
 msgstr "Vervang All Fields Merge Tag zonder bestanduploads"
 
@@ -168,7 +169,7 @@ msgstr "Velden met berekeningen"
 #: templates/template-calculations.php:30
 #: templates/template-conditional-logic.php:14
 #: templates/template-conditional-logic.php:107
-#: templates/template-gravity-flow.php:11
+#: templates/template-gravity-flow.php:14
 msgid "ID"
 msgstr "ID"
 
@@ -216,48 +217,85 @@ msgstr "Velden die worden gebruikt in regels voor voorwaardelijke logica"
 msgid "Used in conditional logic of field with ID"
 msgstr "Gebruikt in voorwaardelijke logica van veld met ID"
 
-#: templates/template-dynamic-population.php:33
+#: templates/template-dynamic-population.php:46
+msgid "Dynamic Population Type:"
+msgstr "Dynamisch vullen Type:"
+
+#: templates/template-dynamic-population.php:47
+msgid "URL"
+msgstr ""
+
+#: templates/template-dynamic-population.php:48
+msgid "URL with merge tags"
+msgstr "URL met merge tags"
+
+#: templates/template-dynamic-population.php:49
+msgid "Excel formula (International)"
+msgstr "Excel formule (Internationaal)"
+
+#: templates/template-dynamic-population.php:50
+msgid "Excel formula (Localized)"
+msgstr "Excel formule (Lokaal)"
+
+#: templates/template-dynamic-population.php:52
+#: templates/template-dynamic-population.php:94
+msgid "JWT Prefill"
+msgstr ""
+
+#: templates/template-dynamic-population.php:63
+msgid "Value"
+msgstr "Waarde"
+
+#: templates/template-dynamic-population.php:68
 msgid "Url query string template for dynamic population"
 msgstr "Url-query string sjabloon voor dynamisch vullen"
 
-#: templates/template-dynamic-population.php:41
+#: templates/template-dynamic-population.php:72
 msgid "Url query string template with merge tags for dynamic population"
 msgstr "Url-query string sjabloon met samenvoegtags voor dynamische populatie"
 
-#: templates/template-dynamic-population.php:49
+#: templates/template-dynamic-population.php:76
 msgid "Excel formula for generating url (encoded) query string (International)"
 msgstr ""
 "Excel-formule voor het genereren van url (gecodeerde) query string "
 "(internationaal)"
 
-#: templates/template-dynamic-population.php:57
+#: templates/template-dynamic-population.php:81
 msgid "Excel formula for generating url (encoded) query string (Localized)"
 msgstr ""
 "Excel-formule voor het genereren van url (gecodeerde) query string "
 "(gelokaliseerd)"
 
 #. translators: Translate to localized excel function.
-#: templates/template-dynamic-population.php:64
+#: templates/template-dynamic-population.php:85
 msgid "ENCODEURL"
 msgstr "URL.CODEREN"
 
-#: templates/template-gravity-flow.php:10
+#: templates/template-dynamic-population.php:94
+msgid "shortcode string for dynamic population"
+msgstr "shortcode string voor dynamisch vullen"
+
+#: templates/template-gravity-flow.php:8
+msgid "Worfklow Status"
+msgstr ""
+
+#: templates/template-gravity-flow.php:13
 msgid "Gravity Flow Step"
 msgstr "GravityFlow Stap"
 
-#: templates/template-gravity-flow.php:13
+#: templates/template-gravity-flow.php:16
 msgid "Active"
 msgstr "Actief"
 
-#: templates/template-gravity-flow.php:14
+#: templates/template-gravity-flow.php:17
 msgid "Conditions"
 msgstr "Voorwaarden"
 
-#: templates/template-gravity-flow.php:15
+#: templates/template-gravity-flow.php:18
 msgid "Next Step (id)"
 msgstr "Volgende Stap (id)"
 
-#: templates/template-gravity-flow.php:16
+#: templates/template-gravity-flow.php:19
 msgid "Count Shortcode"
 msgstr "Count Shortcode"
 
