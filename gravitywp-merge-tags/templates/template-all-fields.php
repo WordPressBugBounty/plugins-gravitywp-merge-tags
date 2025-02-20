@@ -1,4 +1,6 @@
-<?php class_exists( 'GFForms' ) || die(); ?>
+<?php
+
+class_exists( 'GFForms' ) || die(); ?>
 
 <?php
 	// True when required plugin for additional functionality is activated, otherwise false.
@@ -42,8 +44,21 @@ const gwpAllFieldsCopyToClipboard = async () => {
 	console.error("Failed to copy to clipboard:", error);
 	}
 };
+
+/** Show/hides dynamic field labels */
+function gwpAllFieldsDynamicFieldLabels() {
+	var dynamic_labels = jQuery('input[name="gwp_all_fields_dynamic_labels"]:checked').val();
+	if (dynamic_labels === 'yes') {
+		jQuery('.with-dynamic-field-label').show();
+		jQuery('.without-dynamic-field-label').hide();
+	} else {
+		jQuery('.with-dynamic-field-label').hide();
+		jQuery('.without-dynamic-field-label').show();
+	}
+}
 </script>
 
+<!-- Copy to clipboard button -->
 
 <style>table.fixed { table-layout: auto;  }</style>
 <p></p>
@@ -58,6 +73,8 @@ const gwpAllFieldsCopyToClipboard = async () => {
 	<?php
 }
 ?>
+
+<!-- Genereted All Fields Merge Tag Settings  -->
 
 <div id="gwp_toggle_settings_all_fields" style="margin-bottom:10px; display:flex; flex-wrap: wrap; justify-content: space-between;">
 	<div id="gwp_toggle_columns_all_fields" style="border: 1px solid #c3c4c7; background: white; display:flex; flex-wrap: wrap; align-items:center;">
@@ -89,6 +106,9 @@ const gwpAllFieldsCopyToClipboard = async () => {
 		}
 		?>
 	</div>
+
+	<!-- Replace All Fields settings -->
+
 	<div id="gwp_all_fields_anchor_links" style="flex-grow: 1; border: 1px solid #c3c4c7; background: white; display:flex; flex-wrap: wrap; align-items:center; margin-left: 10px;">
 		<span style="padding:10px;"><?php esc_html_e( 'Replace All Fields:', 'gravitywp-merge-tags' ); ?></span>
 		<a style="padding:10px;" href="#gwp-replace-all-fields-regular"><?php esc_html_e( 'All fields', 'gravitywp-merge-tags' ); ?></a>
@@ -97,6 +117,10 @@ const gwpAllFieldsCopyToClipboard = async () => {
 		<a style="padding:10px;" href="#gwp-replace-all-fields-gview-shortcode"><?php esc_html_e( 'GravityView gvlogic', 'gravitywp-merge-tags' ); ?></a>
 		<?php } ?> 
 		<a style="padding:10px;" href="#gwp-replace-all-fields-no-uploads"><?php esc_html_e( 'Without fileuploads', 'gravitywp-merge-tags' ); ?></a>
+		<div style="margin-left: 10px;">
+			<input style="margin-left: 10px;" type="checkbox" onchange="gwpAllFieldsDynamicFieldLabels()" id="gwp_all_fields_dynamic_labels_yes" name="gwp_all_fields_dynamic_labels" value="yes" />
+			<label for="gwp_all_fields_dynamic_labels_yes" style="padding-bottom: 4px;"><?php esc_html_e( 'Use {:label}', 'gravitywp-merge-tags' ); ?></label>
+		</div>
 	</div>
 </div>
 
@@ -107,7 +131,6 @@ if ( $gf_all_fields_template_plugin_activated ) {
 	<thead>
 
 		<!-- Table to select fields for a generated merge tag. -->
-
 		<tr>
 		<th>
 			<input style="margin-left: 0px;" type="checkbox" id="checkbox_select_all" name="checkbox_select_all" onchange="gwpAllFieldsToggleCheckboxes(this);"  tooltip="<?php esc_html_e( 'Select all fields', 'gravitywp-merge-tags' ); ?>">
@@ -182,6 +205,9 @@ if ( $gf_all_fields_template_plugin_activated ) {
 					if ( isset( $field['inputs'] ) && is_array( $field['inputs'] ) ) {
 
 						foreach ( $field['inputs'] as $input ) {
+							?>
+							<span class="without-dynamic-field-label">
+							<?php
 							echo esc_html( "<tr><td class='gwp-allfields-label'>" );
 							echo esc_html( GFCommon::get_label( $field, $input['id'] ) );
 							echo esc_html( "</td><td class='gwp-allfields-value'>{" . GFCommon::get_label( $field, $input['id'] ) );
@@ -189,10 +215,24 @@ if ( $gf_all_fields_template_plugin_activated ) {
 							echo esc_html( $input['id'] );
 							echo esc_html( '}</td></tr>' );
 							?>
+							</span>
+							<span class="with-dynamic-field-label" style="display:none;">
+							<?php
+							echo esc_html( "<tr><td class='gwp-allfields-label'>{" );
+							echo esc_html( GFCommon::get_label( $field, $input['id'] ) . ':' . $field['id'] . ':label}' );
+							echo esc_html( "</td><td class='gwp-allfields-value'>{" . GFCommon::get_label( $field, $input['id'] ) );
+							echo esc_html( ':' );
+							echo esc_html( $input['id'] );
+							echo esc_html( '}</td></tr>' );
+							?>
+							</span>
 							<br>
 							<?php
 						}
 					} elseif ( ! rgar( $field, 'displayOnly' ) ) {
+						?>
+						<span class="without-dynamic-field-label">
+						<?php
 						echo esc_html( "<tr><td class='gwp-allfields-label'>" );
 						echo esc_html( GFCommon::get_label( $field ) );
 						echo esc_html( '</td>' );
@@ -202,6 +242,20 @@ if ( $gf_all_fields_template_plugin_activated ) {
 						echo esc_html( $field['id'] );
 						echo esc_html( '}</td></tr>' );
 						?>
+						</span>
+						
+						<span class="with-dynamic-field-label" style="display:none;">
+						<?php
+						echo esc_html( "<tr><td class='gwp-allfields-label'>{" );
+						echo esc_html( GFCommon::get_label( $field ) . ':' . $field['id'] . ':label}' );
+						echo esc_html( '</td>' );
+						echo esc_html( "<td class='gwp-allfields-value'>{" );
+						echo esc_html( GFCommon::get_label( $field ) );
+						echo esc_html( ':' );
+						echo esc_html( $field['id'] );
+						echo esc_html( '}</td></tr>' );
+						?>
+						</span>
 						<br>
 						<?php
 					}
@@ -225,6 +279,9 @@ if ( $gf_all_fields_template_plugin_activated ) {
 					if ( isset( $field['inputs'] ) && is_array( $field['inputs'] ) ) {
 
 						foreach ( $field['inputs'] as $input ) {
+							?>
+							<span class="without-dynamic-field-label">
+							<?php
 							$mergetag = "{{$field['label']}:{$field['id']}}";
 							echo esc_html( '[gravityforms action="conditional" merge_tag="' . $mergetag . '" condition="isnot" value=""]' );
 							echo esc_html( "<tr><td class='gwp-allfields-label'>" );
@@ -234,10 +291,27 @@ if ( $gf_all_fields_template_plugin_activated ) {
 							echo esc_html( $input['id'] );
 							echo esc_html( '}</td></tr>[/gravityforms]' );
 							?>
+							</span>
+							
+							<span class="with-dynamic-field-label" style="display:none;">
+							<?php
+							$mergetag = "{{$field['label']}:{$field['id']}}";
+							echo esc_html( '[gravityforms action="conditional" merge_tag="' . $mergetag . '" condition="isnot" value=""]' );
+							echo esc_html( "<tr><td class='gwp-allfields-label'>{" );
+							echo esc_html( GFCommon::get_label( $field, $input['id'] ) . ':' . $input['id'] . ':label}' );
+							echo esc_html( "</td><td class='gwp-allfields-value'>{" . GFCommon::get_label( $field, $input['id'] ) );
+							echo esc_html( ':' );
+							echo esc_html( $input['id'] );
+							echo esc_html( '}</td></tr>[/gravityforms]' );
+							?>
+							</span>
 							<br>
 							<?php
 						}
 					} elseif ( ! rgar( $field, 'displayOnly' ) ) {
+						?>
+						<span class="without-dynamic-field-label">
+						<?php
 						$mergetag = "{{$field['label']}:{$field['id']}}";
 						echo esc_html( '[gravityforms action="conditional" merge_tag="' . $mergetag . '" condition="isnot" value=""]' );
 						echo esc_html( "<tr><td class='gwp-allfields-label'>" );
@@ -249,6 +323,22 @@ if ( $gf_all_fields_template_plugin_activated ) {
 						echo esc_html( $field['id'] );
 						echo esc_html( '}</td></tr>[/gravityforms]' );
 						?>
+						</span>
+						
+						<span class="with-dynamic-field-label" style="display:none;">
+						<?php
+						$mergetag = "{{$field['label']}:{$field['id']}}";
+						echo esc_html( '[gravityforms action="conditional" merge_tag="' . $mergetag . '" condition="isnot" value=""]' );
+						echo esc_html( "<tr><td class='gwp-allfields-label'>{" );
+						echo esc_html( GFCommon::get_label( $field ) . ':' . $field['id'] . ':label}' );
+						echo esc_html( '</td>' );
+						echo esc_html( "<td class='gwp-allfields-value'>{" );
+						echo esc_html( GFCommon::get_label( $field ) );
+						echo esc_html( ':' );
+						echo esc_html( $field['id'] );
+						echo esc_html( '}</td></tr>[/gravityforms]' );
+						?>
+						</span>
 						<br>
 						<?php
 					}
@@ -261,7 +351,9 @@ if ( $gf_all_fields_template_plugin_activated ) {
 
 		<!-- All fields including GV conditional shortcode. -->
 
-		<?php if ( class_exists( 'GravityView_Plugin' ) ) { ?>
+		<?php
+		if ( class_exists( 'GravityView_Plugin' ) ) {
+			?>
 
 		<tr>
 			<td id="gwp-replace-all-fields-gview-shortcode"><?php esc_html_e( 'Replace All Fields Merge Tag with Gravity View shortcode', 'gravitywp-merge-tags' ); ?></td>
@@ -272,8 +364,11 @@ if ( $gf_all_fields_template_plugin_activated ) {
 			if ( isset( $form ) && is_array( $form['fields'] ) ) {
 				foreach ( $form['fields'] as $field ) {
 					if ( isset( $field['inputs'] ) && is_array( $field['inputs'] ) ) {
-
+						
 						foreach ( $field['inputs'] as $input ) {
+							?>
+						<span class="without-dynamic-field-label">
+						<?php
 							$mergetag = "{{$field['label']}:{$field['id']}}";
 							echo esc_html( '[gvlogic if="' . $mergetag . '" isnot=""]' );
 							echo esc_html( "<tr><td class='gwp-allfields-label'>" );
@@ -283,10 +378,27 @@ if ( $gf_all_fields_template_plugin_activated ) {
 							echo esc_html( $input['id'] );
 							echo esc_html( '}</td></tr>[/gvlogic]' );
 							?>
-							<br>
+							</span>
+
+							<span class="with-dynamic-field-label" style="display:none;">
 							<?php
+								$mergetag = "{{$field['label']}:{$field['id']}}";
+								echo esc_html( '[gvlogic if="' . $mergetag . '" isnot=""]' );
+								echo esc_html( "<tr><td class='gwp-allfields-label'>{" );
+								echo esc_html( GFCommon::get_label( $field, $input['id'] ) . ':' . $input['id'] . ':label}' );
+								echo esc_html( "</td><td class='gwp-allfields-value'>{" . GFCommon::get_label( $field, $input['id'] ) );
+								echo esc_html( ':' );
+								echo esc_html( $input['id'] );
+								echo esc_html( '}</td></tr>[/gvlogic]' );
+							?>
+							</span>
+							<br>
+								<?php
 						}
 					} elseif ( ! rgar( $field, 'displayOnly' ) ) {
+						?>
+						<span class="without-dynamic-field-label">
+						<?php
 						$mergetag = "{{$field['label']}:{$field['id']}}";
 						echo esc_html( '[gvlogic if="' . $mergetag . '" isnot=""]' );
 						echo esc_html( "<tr><td class='gwp-allfields-label'>" );
@@ -298,17 +410,33 @@ if ( $gf_all_fields_template_plugin_activated ) {
 						echo esc_html( $field['id'] );
 						echo esc_html( '}</td></tr>[/gvlogic]' );
 						?>
+						</span>
+
+						<span class="with-dynamic-field-label" style="display:none;">
+						<?php
+						$mergetag = "{{$field['label']}:{$field['id']}}";
+						echo esc_html( '[gvlogic if="' . $mergetag . '" isnot=""]' );
+						echo esc_html( "<tr><td class='gwp-allfields-label'>{" );
+						echo esc_html( GFCommon::get_label( $field ) . ':' . $field['id'] . ':label}' );
+						echo esc_html( '</td>' );
+						echo esc_html( "<td class='gwp-allfields-value'>{" );
+						echo esc_html( GFCommon::get_label( $field ) );
+						echo esc_html( ':' );
+						echo esc_html( $field['id'] );
+						echo esc_html( '}</td></tr>[/gvlogic]' );
+						?>
+						</span>
 						<br>
 						<?php
 					}
 				}
 			}
-			echo esc_html( '</tbody></table>' );
+				echo esc_html( '</tbody></table>' );
 			?>
 			</td>
 		</tr>
 
-			<?php
+		<?php
 		}
 		?>
 
@@ -329,8 +457,11 @@ if ( $gf_all_fields_template_plugin_activated ) {
 			if ( isset( $form ) && is_array( $form['fields'] ) ) {
 				foreach ( $form['fields'] as $field ) {
 					if ( isset( $field['inputs'] ) && is_array( $field['inputs'] ) ) {
-
+						
 						foreach ( $field['inputs'] as $input ) {
+							?>
+							<span class="without-dynamic-field-label 1">
+							<?php
 							if ( RGFormsModel::get_input_type( $field ) !== 'fileupload' ) {
 								echo esc_html( "<tr><td class='gwp-allfields-label'>" );
 								echo esc_html( GFCommon::get_label( $field, $input['id'] ) );
@@ -340,12 +471,29 @@ if ( $gf_all_fields_template_plugin_activated ) {
 								echo esc_html( $input['id'] );
 								echo esc_html( '}</td></tr>' );
 								?>
+						</span>
+
+						<span class="with-dynamic-field-label 2" style="display:none;">
+								<?php
+								echo esc_html( "<tr><td class='gwp-allfields-label'>{" );
+								echo esc_html( GFCommon::get_label( $field, $input['id'] ) . ':' . $input['id'] . ':label}' );
+								echo esc_html( "</td><td class='gwp-allfields-value'>{" );
+								echo esc_html( GFCommon::get_label( $field, $input['id'] ) );
+								echo esc_html( ':' );
+								echo esc_html( $input['id'] );
+								echo esc_html( '}</td></tr>' );
+								?>
+						</span>
 								<br>
 								<?php
 							}
 						}
 					} elseif ( ! rgar( $field, 'displayOnly' ) ) {
+
 						if ( RGFormsModel::get_input_type( $field ) !== 'fileupload' ) {
+							?>
+						<span class="without-dynamic-field-label 3">
+							<?php
 							echo esc_html( "<tr><td class='gwp-allfields-label'>" );
 							echo esc_html( GFCommon::get_label( $field ) );
 							echo esc_html( "</td><td class='gwp-allfields-value'>{" );
@@ -354,6 +502,19 @@ if ( $gf_all_fields_template_plugin_activated ) {
 							echo esc_html( $field['id'] );
 							echo esc_html( '}</td></tr>' );
 							?>
+							</span>
+
+							<span class="with-dynamic-field-label 4" style="display:none;">
+							<?php
+							echo esc_html( "<tr><td class='gwp-allfields-label'>{" );
+							echo esc_html( GFCommon::get_label( $field ) . ':' . $field['id'] . ':label}' );
+							echo esc_html( "</td><td class='gwp-allfields-value'>{" );
+							echo esc_html( GFCommon::get_label( $field ) );
+							echo esc_html( ':' );
+							echo esc_html( $field['id'] );
+							echo esc_html( '}</td></tr>' );
+							?>
+							</span>
 							<br>
 							<?php
 						}
@@ -366,6 +527,3 @@ if ( $gf_all_fields_template_plugin_activated ) {
 		</tr>
 	</tbody>
 </table>
-
-
-
