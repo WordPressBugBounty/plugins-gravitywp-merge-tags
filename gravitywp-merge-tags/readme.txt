@@ -4,7 +4,7 @@ Plugin URI: https://gravitywp.com/add-on/merge-tags/
 Tags: gravity forms, mergetag, merge tag, mergetags, form, forms, gravity form
 Requires at least: 3.0.1
 Tested up to: 6.7
-Stable tag: 1.4.3
+Stable tag: 1.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -75,6 +75,10 @@ The $gwp_merge_tags variable is an associative array, which you can add your own
 9. Calculations overview for the current Gravity Form (Formula, Number Format).
 
 == Changelog ==
+
+= 1.4.4 =
+* Removed date field inputs and list field columns from the Merge Tag lists, as they do not work for these fields.
+* Add the full checkboxes merge tags on the Merge Tag tab.
 
 = 1.4.3 =
 * Added option to use dynamic field labels in All Fields tab.

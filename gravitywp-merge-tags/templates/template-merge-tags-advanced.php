@@ -98,7 +98,7 @@ function gwp_mt_toggle( element ){
 				<td class="gwp-value-select fieldid>"<?php echo esc_html( $field['id'] ); ?></td>
 			</tr>
 			<?php
-			if ( isset( $field['choices'] ) && is_array( $field['choices'] ) && ! isset( $field['inputs'] ) ) {
+			if ( isset( $field['choices'] ) && is_array( $field['choices'] ) && ! isset( $field['inputs'] ) && $field->type !== 'list' ) {
 				$num_choices = count( $field['choices'] );
 				for ( $i = 0;$i < $num_choices;$i++ ) {
 					$choices_id = $i + 1;
@@ -118,7 +118,7 @@ function gwp_mt_toggle( element ){
 				}
 			}
 
-			if ( isset( $field['inputs'] ) && is_array( $field['inputs'] ) ) {
+			if ( isset( $field['inputs'] ) && is_array( $field['inputs'] ) && $field->type !== 'date' ) {
 				$num_inputs = count( $field['inputs'] );
 				for ( $i = 0;$i < $num_inputs;$i++ ) {
 					if ( ! empty( $field['inputs'][ $i ]['name'] ) ) {
