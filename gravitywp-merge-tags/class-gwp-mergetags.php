@@ -9,14 +9,15 @@ GFForms::include_addon_framework();
 /**
  * GWPMergeTags.
  *
- * @author GravityWP
- * @since v0.0.1
+ * @author  GravityWP
+ * @since   v0.0.1
  * @version v1.0.0
- * @see GFAddOn
+ * @see     GFAddOn
  *
  * @global
  */
 class GWPMergeTags extends GFAddOn {
+
 
 	/**
 	 * @var string $_version
@@ -56,10 +57,10 @@ class GWPMergeTags extends GFAddOn {
 	/**
 	 * Function: __construct.
 	 *
-	 * @author GravityWP
-	 * @since v0.0.1
+	 * @author  GravityWP
+	 * @since   v0.0.1
 	 * @version v1.0.0
-	 * @access public
+	 * @access  public
 	 *
 	 * @return void
 	 */
@@ -71,16 +72,16 @@ class GWPMergeTags extends GFAddOn {
 
 	/**
 	 * Override this function to perform tasks during WordPress initialization.
-	 * 
+	 *
 	 * @return void
 	 */
 	public function init() {
 		parent::init();
-		add_filter('wp_before_admin_bar_render', [__CLASS__, 'admin_bar'], 20);
+		add_filter( 'wp_before_admin_bar_render', array( __CLASS__, 'admin_bar' ), 20 );
 
 		// Enqueue GP Live Preview plugin styles on Merge Tags page of a form.
-		if ( isset( $_GET[ 'page' ] ) && $_GET[ 'page' ] === 'gravitywp-merge-tags' && isset( $_GET[ 'id' ] ) )  {
-		
+		if ( isset( $_GET['page'] ) && $_GET['page'] === 'gravitywp-merge-tags' && isset( $_GET['id'] ) ) {
+
 			if ( class_exists( 'GP_Live_Preview' ) ) {
 				wp_enqueue_style( 'gp-live-preview-admin', plugins_url( '../gp-live-preview/css/gp-live-preview-admin.min.css', __FILE__ ), array(), $this->_version );
 				wp_enqueue_script( 'gp-live-preview-admin', plugins_url( '../gp-live-preview/js/gp-live-preview-admin.js', __FILE__ ), array( 'jquery' ), $this->_version, true );
@@ -104,10 +105,10 @@ class GWPMergeTags extends GFAddOn {
 	/**
 	 * Function: scripts.
 	 *
-	 * @author GravityWP
-	 * @since v0.0.1
+	 * @author  GravityWP
+	 * @since   v0.0.1
 	 * @version v1.0.0
-	 * @access public
+	 * @access  public
 	 *
 	 * @return array<mixed>
 	 */
@@ -132,10 +133,10 @@ class GWPMergeTags extends GFAddOn {
 	 * Target of the plugin menu left nav icon. Displays the outer plugin page markup and calls plugin_page() to render the actual page.
 	 * Override plugin_page() in order to provide a custom plugin page
 	 *
-	 * @author GravityWP
-	 * @since v0.0.1
+	 * @author  GravityWP
+	 * @since   v0.0.1
 	 * @version v1.0.0
-	 * @access public
+	 * @access  public
 	 *
 	 * @return void
 	 */
@@ -144,14 +145,14 @@ class GWPMergeTags extends GFAddOn {
 		if ( ! version_compare( GFCommon::$version, '2.5', '<' ) ) {
 			?>
 			<div class="wrap">
-				<?php
-				$icon = $this->plugin_page_icon();
-				if ( ! empty( $icon ) ) {
-					?>
-					<img alt="<?php echo esc_attr( $this->get_short_title() ); ?>" style="margin: 15px 7px 0pt 0pt; float: left;" src="<?php echo esc_attr( $icon ); ?>" />
-					<?php
-				}
+			<?php
+			$icon = $this->plugin_page_icon();
+			if ( ! empty( $icon ) ) {
 				?>
+					<img alt="<?php echo esc_attr( $this->get_short_title() ); ?>" style="margin: 15px 7px 0pt 0pt; float: left;" src="<?php echo esc_attr( $icon ); ?>" />
+				<?php
+			}
+			?>
 
 					<header class="gform-settings-header" style="background-color: #66abcc50; ">
 						<div class="gform-settings__wrapper" style="background: url(<?php echo esc_attr( plugin_dir_url( __FILE__ ) ); ?>assets/img/gwp_astronaut2.svg) no-repeat bottom right; height: 40px; padding: 1.375rem; ">
@@ -159,10 +160,10 @@ class GWPMergeTags extends GFAddOn {
 						</div>
 					</header>
 
-				<?php
+			<?php
 
-				$this->plugin_page();
-				?>
+			$this->plugin_page();
+			?>
 
 			</div>
 			<?php
@@ -176,17 +177,17 @@ class GWPMergeTags extends GFAddOn {
 	/**
 	 * Modifies the top WordPress toolbar to add Gravity Forms menu items.
 	 *
-	 * @since   Unknown
+	 * @since Unknown
 	 *
 	 * @global $wp_admin_bar
 	 *
 	 * @used-by GFForms::init()
-	 * 
+	 *
 	 * @return void
 	 */
-	public static function admin_bar( ) {
+	public static function admin_bar() {
 		/**
-		 * @var  WP_Admin_Bar $wp_admin_bar
+		 * @var WP_Admin_Bar $wp_admin_bar
 		 */
 		global $wp_admin_bar;
 
@@ -214,11 +215,11 @@ class GWPMergeTags extends GFAddOn {
 	/**
 	 * Function: gwp_create_menu_item.
 	 *
-	 * @author GravityWP
-	 * @since v0.0.1
+	 * @author  GravityWP
+	 * @since   v0.0.1
 	 * @version v1.0.0
-	 * @param string $slug
-	 * @param string $title
+	 * @param   string $slug
+	 * @param   string $title
 	 *
 	 * @return void
 	 */
@@ -231,14 +232,14 @@ class GWPMergeTags extends GFAddOn {
 		echo '<a ' . esc_attr( $url ) . '&tab=' . esc_attr( $slug ) . ' class="nav-tab' . esc_attr( $active );
 		echo '">' . esc_html( $title ) . '</a>';
 	}
-	
+
 	/**
 	 * Creates a custom admin page for GravityWP - Merge Tags
 	 *
-	 * @author GravityWP
-	 * @since v0.0.1
+	 * @author  GravityWP
+	 * @since   v0.0.1
 	 * @version v1.0.0
-	 * @access public
+	 * @access  public
 	 *
 	 * @return void
 	 */
@@ -254,13 +255,30 @@ class GWPMergeTags extends GFAddOn {
 			$media  = 'all';
 			wp_enqueue_style( $handle, $src, $deps, $ver, $media );
 
-
 			// Include gforms admin styles.
 			wp_print_styles( array( 'jquery-ui-styles', 'gform_admin', 'gform_settings', 'wp-pointer' ) );
 			echo '<style>table.wp-list-table { margin-bottom: 10px;  }</style>';
 
-			$active_tab = isset( $_GET['tab'] ) ? wp_unslash( $_GET['tab'] ) : 'merge-tags';
-			$form       = RGFormsModel::get_form_meta( absint( $_GET['id'] ) );
+			// Sanitize and validate the tab
+			$allowed_tabs = array(
+				'merge-tags',
+				'merge-tags-advanced',
+				'dynamic-population',
+				'conditional-logic',
+				'calculations',
+				'standard-merge-tags',
+				'gravity-flow',
+				'all-fields',
+			);
+
+			// Use a safe default if invalid or not set
+			$active_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'merge-tags';
+
+			if ( ! in_array( $active_tab, $allowed_tabs, true ) ) {
+				wp_die( esc_html__( 'Invalid tab.', 'gravitywp-merge-tags' ) );
+			}
+
+			$form = RGFormsModel::get_form_meta( absint( $_GET['id'] ) );
 
 			// Add selectable form title for GF 2.4 and lower.
 			if ( version_compare( GFCommon::$version, '2.5', '<' ) ) {
@@ -308,8 +326,13 @@ class GWPMergeTags extends GFAddOn {
 			// Create Tabs
 			$fields = array();
 
-			$template = $this->get_base_path() . '/templates/template-' . $active_tab . '.php';
-			file_exists( $template ) ? include $template : esc_html_e( 'Template not found.', 'gravitywp-merge-tags' );
+			$template = plugin_dir_path( __FILE__ ) . 'templates/template-' . $active_tab . '.php';
+
+			if ( file_exists( $template ) ) {
+				include $template;
+			} else {
+				esc_html_e( 'Template not found.', 'gravitywp-merge-tags' );
+			}
 
 			// Advanced mergetags Teaser.
 			if ( ! defined( 'GWP_ADVANCED_MERGE_TAGS_VERSION' ) ) {
@@ -331,14 +354,14 @@ class GWPMergeTags extends GFAddOn {
 		} else {
 			$forms = RGFormsModel::get_forms( null, 'title' );
 			echo "<table class='wp-list-table widefat striped'' cellspacing='0'><thead><tr><th>" .
-				esc_html__( 'Select Form', 'gravitywp-merge-tags' )
-				. '</th></tr></thead><tbody>';
+			esc_html__( 'Select Form', 'gravitywp-merge-tags' )
+			. '</th></tr></thead><tbody>';
 
 			foreach ( $forms as $form ) :
 				echo '<tr><td>
                     <a href="' . esc_attr( $_SERVER['REQUEST_URI'] ) . '&id=' . esc_attr( $form->id ) . '"&tab=merge-tags target=_self>' . esc_attr( $form->title ) .
-					'</a></td></tr>';
-				endforeach;
+				'</a></td></tr>';
+			endforeach;
 			echo '</tbody></table>';
 
 		}
