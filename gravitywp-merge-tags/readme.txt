@@ -61,6 +61,8 @@ The $gwp_merge_tags variable is an associative array, which you can add your own
 `$gwp_merge_tags['key']['url']` URL for the plugin website.
 `$gwp_merge_tags['key']['values']` an array with merge tags.
 
+= How can I report security bugs? =
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team helps validate, triage and handle any security vulnerabilities. [Report a security vulnerability.]( https://patchstack.com/database/vdp/2bc7fde2-aa1f-4013-9d95-6515130a1691 )
 
 == Screenshots ==
 
