@@ -4,7 +4,7 @@ Plugin URI: https://gravitywp.com/add-on/merge-tags/
 Tags: gravity forms, mergetag, merge tag, mergetags, form
 Requires at least: 3.0.1
 Tested up to: 6.8
-Stable tag: 1.4.5
+Stable tag: 1.4.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,8 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 9. Calculations overview for the current Gravity Form (Formula, Number Format).
 
 == Changelog ==
+= 1.4.6 =
+- Load only IDs and titles for the form list, avoiding unnecessary entry/view count queries.
 
 = 1.4.5 =
 * Security: Sanitize and validate 'tab' parameter to prevent potential Local File Inclusion. Credits: Nguyen Xuan Chien via Patchstack

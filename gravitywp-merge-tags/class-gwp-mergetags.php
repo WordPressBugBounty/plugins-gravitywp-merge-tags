@@ -352,14 +352,22 @@ class GWPMergeTags extends GFAddOn {
 			echo '</div>';
 
 		} else {
-			$forms = RGFormsModel::get_forms( null, 'title' );
+			if ( method_exists( 'GFFormsModel', 'get_forms_columns' ) ) {
+				$forms = GFFormsModel::get_forms_columns( null, false, 'title', 'ASC', array( 'id', 'title' ) );
+			} else {
+				// Gravity Forms before 2.7.5: fetch only the selector columns.
+				global $wpdb;
+				$table = GFFormsModel::get_form_table_name();
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- GF supplies the table name; include current non-trashed forms without counts.
+				$forms = $wpdb->get_results( "SELECT id, title FROM {$table} WHERE is_trash = 0 ORDER BY title ASC", ARRAY_A );
+			}
 			echo "<table class='wp-list-table widefat striped'' cellspacing='0'><thead><tr><th>" .
 			esc_html__( 'Select Form', 'gravitywp-merge-tags' )
 			. '</th></tr></thead><tbody>';
 
 			foreach ( $forms as $form ) :
 				echo '<tr><td>
-                    <a href="' . esc_attr( $_SERVER['REQUEST_URI'] ) . '&id=' . esc_attr( $form->id ) . '"&tab=merge-tags target=_self>' . esc_attr( $form->title ) .
+                    <a href="' . esc_attr( $_SERVER['REQUEST_URI'] ) . '&id=' . esc_attr( $form['id'] ) . '"&tab=merge-tags target=_self>' . esc_attr( $form['title'] ) .
 				'</a></td></tr>';
 			endforeach;
 			echo '</tbody></table>';
